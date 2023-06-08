@@ -1,47 +1,40 @@
-import java.awt.LayoutManager;
-
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Graphics;
 import javax.swing.JPanel;
 
 /**
- * 
- */
-
-/**
- * @author mcecc
- *
+ * @author Marco Cecchi-Rivas
+ * object represents each square on the chess board, either having a queen or not
  */
 public class ChessSquarePanel extends JPanel {
 
-	/**
-	 * 
-	 */
-	public ChessSquarePanel() {
-		// TODO Auto-generated constructor stub
-	}
+	private Color backgroundColor;
+    private boolean hasQueen;
 
-	/**
-	 * @param layout
-	 */
-	public ChessSquarePanel(LayoutManager layout) {
-		super(layout);
-		// TODO Auto-generated constructor stub
-	}
+    /**
+     * @param backgroundColor background color for the tile
+     * @param hasQueen if there is a queen on this spot
+     * instantiates the panel and fills fields, also sets preferred size of (50, 50)
+     */
+    public ChessSquarePanel(Color backgroundColor, boolean hasQueen) {
+        this.backgroundColor = backgroundColor;
+        this.hasQueen = hasQueen;
+        setPreferredSize(new Dimension(50, 50));
+    }
 
-	/**
-	 * @param isDoubleBuffered
-	 */
-	public ChessSquarePanel(boolean isDoubleBuffered) {
-		super(isDoubleBuffered);
-		// TODO Auto-generated constructor stub
-	}
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
 
-	/**
-	 * @param layout
-	 * @param isDoubleBuffered
-	 */
-	public ChessSquarePanel(LayoutManager layout, boolean isDoubleBuffered) {
-		super(layout, isDoubleBuffered);
-		// TODO Auto-generated constructor stub
-	}
+        g.setColor(backgroundColor);
+        g.fillRect(0, 0, getWidth(), getHeight());
 
+        if (hasQueen) {
+            g.setColor(Color.BLACK);
+            g.setFont(new Font("SansSerif", Font.PLAIN, 40));
+            g.drawString("\u2655", 5, 40);
+        }
+    }
 }
